@@ -33,4 +33,4 @@ class BitcoinExchange
 };
 
 void parsing_date(std::string key, std::string value);
-#endif /* ************************************************* BITCOINEXCHANGE_H */
+#endif 

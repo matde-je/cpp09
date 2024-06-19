@@ -43,26 +43,23 @@ void BitcoinExchange::parsing_date(std::string key, std::string value) {
     int b = 0;
     for (int i = 0; i < (int)key.length(); i++)
         if (key[i] == '-') {b++;}
-    if (b > 2) {std::cerr << "Error: invalid date '-'.\n"; return ;}
+    if (b > 2) {std::cerr << "Error: bad input => " << key << "\n"; return ;}
     std::string year = key.substr(0, key.find("-"));
     std::string month = key.substr(key.find("-") + 1, key.find("-", key.find("-") + 1) - key.find("-") - 1);
     std::string day = key.substr(key.find("-", key.find("-") + 1) + 1, key.length());
     for (int i = 0; i < (int)year.length(); i++)
-        if (isspace(year[i])) {std::cerr << "Error in year"<< ".\n"; return ;}
+        if (isspace(year[i])) {std::cerr << "Error: bad input => " << key << "\n"; return ;}
     for (int i = 0; i < (int)month.length(); i++)
-        if (isspace(month[i])) {std::cerr << "Error in month .\n"; return ;}
+        if (isspace(month[i])) {std::cerr << "Error: bad input => " << key << "\n"; return ;}
     for (int i = 0; i < (int)day.length(); i++)
-        if (isspace(day[i]) && i < (int)day.length() - 1) {std::cerr << "Error in day.\n"; return ;}
+        if (isspace(day[i]) && i < (int)day.length() - 1) {std::cerr << "Error: bad input => " << key << "\n"; return ;}
     int month_limits[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    if (atoi(day.c_str()) > month_limits[atoi(month.c_str()) - 1] || atoi(day.c_str()) < 1)
+    if (atoi(day.c_str()) > month_limits[atoi(month.c_str()) - 1] || atoi(day.c_str()) < 1 || \
+        atoi(year.c_str()) > 2022 || atoi(year.c_str()) < 2009 || atoi(month.c_str()) > 12 || atoi(month.c_str()) < 1)
         {std::cerr << "Error: bad input => " << key << "\n"; return ;}
-    if (atoi(year.c_str()) > 2022 || atoi(year.c_str()) < 2009 || atoi(month.c_str()) > 12 || atoi(month.c_str()) < 1) 
-        {std::cerr << "Error: bad input => " << key << "\n"; return ;}
-    if (atoi(year.c_str()) == 2022 && atoi(month.c_str()) > 3)
-        {std::cerr << "Error: invalid 2022 date, no month corresponding.\n"; return ;}
-    if (atoi(year.c_str()) == 2009 && atoi(month.c_str()) == 1 && atoi(day.c_str()) == 1)
-        {std::cerr << "Error: invalid 2009 date, no day corresponding.\n"; return ;}
-    if ( strtod(value.c_str(), NULL) > 1000 || strtod(value.c_str(), NULL) > std::numeric_limits<int>::max()) 
+    if ((atoi(year.c_str()) == 2022 && atoi(month.c_str()) > 3) || (atoi(year.c_str()) == 2009 && atoi(month.c_str()) == 1 && atoi(day.c_str()) == 1))
+        {std::cerr << "Error: no correspondence => " << key << "\n"; return ;}
+    if (strtod(value.c_str(), NULL) > 1000 || strtod(value.c_str(), NULL) > std::numeric_limits<int>::max()) 
         {std::cerr << "Error: too large a number.\n"; return ;}
     if (strtod(value.c_str(), NULL) < 0 || strtod(value.c_str(), NULL) < -std::numeric_limits<int>::max()) 
         {std::cerr << "Error: not a positive number.\n"; return ;}
