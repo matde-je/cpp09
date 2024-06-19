@@ -2,11 +2,11 @@ CC = c++
 
 CFLAGS = -g -Wall -Wextra -Werror -std=c++98
 
-SRCS = main.cpp .cpp 
+SRCS = main.cpp PmergeMe.cpp 
 
 OBJS = $(SRCS:.cpp=.o)
 
-name = 
+name = PmergeMe
 
 # Build name
 $(name): $(OBJS)

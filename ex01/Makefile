@@ -2,11 +2,11 @@ CC = c++
 
 CFLAGS = -g -Wall -Wextra -Werror -std=c++98
 
-SRCS = main.cpp .cpp 
+SRCS = main.cpp RPN.cpp 
 
 OBJS = $(SRCS:.cpp=.o)
 
-name = 
+name = RPN
 
 # Build name
 $(name): $(OBJS)

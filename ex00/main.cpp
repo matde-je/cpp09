@@ -26,7 +26,7 @@ void BitcoinExchange::parsing(std::string path) {
                     && *it != 'f' && *it != '|' && !isdigit(*it) && line != "date | value" && *it != ' ')) {
                     count = 2; break ;}
             }
-            if (count > 1 || count2 > 1 || count3 > 1 || count4 > 3) {std::cerr << "Error: bad input.\n"; continue ;}
+            if (count > 1 || count2 > 1 || count3 > 1 || count4 > 3 || line.size() == 0) {std::cerr << "Error: bad input.\n"; continue ;}
             if (trig == 0){
                 key = line.substr(0, line.find("|"));
                 value = line.substr(line.find("|") + 1, line.length());
@@ -55,16 +55,16 @@ void BitcoinExchange::parsing_date(std::string key, std::string value) {
         if (isspace(day[i]) && i < (int)day.length() - 1) {std::cerr << "Error in day.\n"; return ;}
     int month_limits[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     if (atoi(day.c_str()) > month_limits[atoi(month.c_str()) - 1] || atoi(day.c_str()) < 1)
-        {std::cerr << "Error: out of month range.\n"; return ;}
+        {std::cerr << "Error: bad input => " << key << "\n"; return ;}
     if (atoi(year.c_str()) > 2022 || atoi(year.c_str()) < 2009 || atoi(month.c_str()) > 12 || atoi(month.c_str()) < 1) 
-        {std::cerr << "Error: out of range date.\n"; return ;}
+        {std::cerr << "Error: bad input => " << key << "\n"; return ;}
     if (atoi(year.c_str()) == 2022 && atoi(month.c_str()) > 3)
         {std::cerr << "Error: invalid 2022 date, no month corresponding.\n"; return ;}
     if (atoi(year.c_str()) == 2009 && atoi(month.c_str()) == 1 && atoi(day.c_str()) == 1)
         {std::cerr << "Error: invalid 2009 date, no day corresponding.\n"; return ;}
-    if ( strtod(value.c_str(), NULL) > 1000 || strtod(value.c_str(), NULL) < -std::numeric_limits<int>::max() || strtod(value.c_str(), NULL) > std::numeric_limits<int>::max()) 
-        {std::cerr << "Error: out of range value.\n"; return ;}
-    if (strtod(value.c_str(), NULL) < 0) 
+    if ( strtod(value.c_str(), NULL) > 1000 || strtod(value.c_str(), NULL) > std::numeric_limits<int>::max()) 
+        {std::cerr << "Error: too large a number.\n"; return ;}
+    if (strtod(value.c_str(), NULL) < 0 || strtod(value.c_str(), NULL) < -std::numeric_limits<int>::max()) 
         {std::cerr << "Error: not a positive number.\n"; return ;}
     this->readData(key, atof(value.c_str()), atoi(year.c_str()), atoi(month.c_str()), atoi(day.c_str()));
 }
