@@ -28,7 +28,6 @@ class BitcoinExchange
 		std::map<std::string, float> map;
 		std::map<std::string, float> map2;
 
-	private:
 
 };
 

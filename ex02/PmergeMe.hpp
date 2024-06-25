@@ -3,6 +3,10 @@
 
 # include <iostream>
 # include <string>
+#include <deque>
+#include <vector>
+#include <ctime>
+#include <algorithm>
 
 class PmergeMe
 {
@@ -14,11 +18,13 @@ class PmergeMe
 		~PmergeMe();
 
 		PmergeMe &		operator=( PmergeMe const & rhs );
+		std::deque<int> deque;
+		std::vector<int> vector;
+		std::vector<int>	pairing();
+		std::vector<int>	recursive();
 
 	private:
 
 };
-
-std::ostream &			operator<<( std::ostream & o, PmergeMe const & i );
 
 #endif

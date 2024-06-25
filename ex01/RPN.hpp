@@ -3,6 +3,7 @@
 
 # include <iostream>
 # include <string>
+#include <stack>
 
 class RPN
 {
@@ -14,11 +15,12 @@ class RPN
 		~RPN();
 
 		RPN &		operator=( RPN const & rhs );
+		std::stack<int> stack;
+		void	operation(char *av);
 
 	private:
 
 };
 
-std::ostream &			operator<<( std::ostream & o, RPN const & i );
 
 #endif 
