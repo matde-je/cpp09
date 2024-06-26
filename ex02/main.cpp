@@ -8,10 +8,12 @@ int main(int argc, char **argv){
 
     PmergeMe m;
     int i = 0;
+    char *a = NULL;
     while (argv[++i]) {
-        if (strtol(argv[i]) >= 0 && strtol(argv[i]) < 2147483648)
-            vector.push_back(atoi(argv[i]));
-            deque.push_back(atoi(argv[i]));
+        if (strtol(argv[i], a, 10) >= 0 && strtol(argv[i], a, 10) < 2147483648) {
+            m.vector.push_back(atoi(argv[i]));
+            m.deque.push_back(atoi(argv[i]));
+        }
     }
     m.mergeSort();
     

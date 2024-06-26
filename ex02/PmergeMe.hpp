@@ -7,10 +7,10 @@
 #include <vector>
 #include <ctime>
 #include <algorithm>
+#include <cstdlib>
 
 class PmergeMe
 {
-
 	public:
 
 		PmergeMe();
