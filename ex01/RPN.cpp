@@ -47,7 +47,7 @@ void	RPN::operation(char *av){
 			else if (av[i] == '*') 
 				stack.push(a * b);
 			else if (av[i] == '/') {
-				if (a == 0)
+				if (b == 0)
 					{std::cerr << "Error\n"; return ;}
 				stack.push(a / b);
 			}

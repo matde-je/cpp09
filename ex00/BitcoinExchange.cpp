@@ -40,7 +40,7 @@ void BitcoinExchange::readData(std::string key, float value1, int year1, int mon
 				if (day == day1)
 					break ;
 			}}}
-	int conta = 0;
+	int sub = 0;
 	if (day != day1) {
 		for (it = map2.begin(); it != map2.end(); ++it) { 
 			year = atoi(it->first.substr(0, it->first.find("-")).c_str());
@@ -48,7 +48,7 @@ void BitcoinExchange::readData(std::string key, float value1, int year1, int mon
 				month = atoi(it->first.substr(it->first.find("-") + 1, it->first.find("-", it->first.find("-") + 1) - it->first.find("-") - 1).c_str());
 				if (month == month1) {
 					day = atoi(it->first.substr(it->first.find("-", it->first.find("-") + 1) + 1, it->first.length()).c_str());
-					if (day < day1) {conta = day;}
+					if (day < day1) {sub = day;}
 					else {break ;}
 		}}}}
 	int day2;
@@ -58,7 +58,7 @@ void BitcoinExchange::readData(std::string key, float value1, int year1, int mon
 			month = atoi(it->first.substr(it->first.find("-") + 1, it->first.find("-", it->first.find("-") + 1) - it->first.find("-") - 1).c_str());
 			if (month == month1) {
 				day2 = atoi(it->first.substr(it->first.find("-", it->first.find("-") + 1) + 1, it->first.length()).c_str());
-				if (day2 == day || day2 == conta) {
+				if (day2 == day || day2 == sub) {
 					std::cout << key << " => " << value1 << " = " << value1 * it->second << std::endl; return ;}
 	}}}
 }
