@@ -53,7 +53,7 @@ void BitcoinExchange::parsing_date(std::string key, std::string value) {
         if (isspace(month[i])) {std::cerr << "Error: bad input => " << key << "\n"; return ;}
     for (int i = 0; i < (int)day.length(); i++)
         if (isspace(day[i]) && i < (int)day.length() - 1) {std::cerr << "Error: bad input => " << key << "\n"; return ;}
-    int month_limits[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    int month_limits[] = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     if (atoi(day.c_str()) > month_limits[atoi(month.c_str()) - 1] || atoi(day.c_str()) < 1 || \
         atoi(year.c_str()) > 2022 || atoi(year.c_str()) < 2009 || atoi(month.c_str()) > 12 || atoi(month.c_str()) < 1)
         {std::cerr << "Error: bad input => " << key << "\n"; return ;}
@@ -63,6 +63,9 @@ void BitcoinExchange::parsing_date(std::string key, std::string value) {
         {std::cerr << "Error: too large a number.\n"; return ;}
     if (strtod(value.c_str(), NULL) < 0 || strtod(value.c_str(), NULL) < -std::numeric_limits<int>::max()) 
         {std::cerr << "Error: not a positive number.\n"; return ;}
+    if (!(atoi(year.c_str()) % 4 == 0 && atoi(year.c_str()) % 100 != 0) || (atoi(year.c_str()) % 400 == 0))
+        if ((month == "2" || month == "02") && atoi(day.c_str()) > 28)
+            {std::cerr << "Error: bad input => " << key << "\n"; return ;}
     this->readData(key, atof(value.c_str()), atoi(year.c_str()), atoi(month.c_str()), atoi(day.c_str()));
 }
 
