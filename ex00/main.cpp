@@ -5,7 +5,7 @@ void BitcoinExchange::parsing(std::string path) {
         std::ifstream file(path.c_str());
         std::string line;
         int a = 0;
-        while (getline(file, line)){
+        while (getline(file, line)) {
             std::string key;
             std::string value;
             int trig = 0;
