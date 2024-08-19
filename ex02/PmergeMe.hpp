@@ -21,6 +21,7 @@ class PmergeMe
 		PmergeMe &		operator=( PmergeMe const & rhs );
 		std::deque<int> deque;
 		std::vector<int> vector;
+
 		template <typename T> 
 		void	recursive(T &contain, int begin, int end) {
 			int mid = (begin + end) / 2;
@@ -48,8 +49,6 @@ class PmergeMe
 			for (int p = 0; p < k; p++) 
 				contain[left + p] = tmp[p];
 		}
-
-
 };
 
 #endif
